@@ -49,19 +49,16 @@ class AuthRoutes extends BaseRoute{
                 })
                 if(!usuario) return Boom.unauthorized('O usuário informado não existe !');
 
-                const match = await Passwordhelper.comparePassword(password. usuario.password);
+                const match = await Passwordhelper.comparePassword(password, usuario.password);
 
                 if(!match) return Boom.unauthorized('O usuário ou senha invalidos !');
 
 
-                const token = Jwt.sign({
-                    username: username,
-                    id: usuario,
-                }, this.secret);
-                
                 return {
-                    token
-                }
+                    token: Jwt.sign({
+                        username: username,
+                        id: usuario,
+                    }, this.secret)}
 
             }
 

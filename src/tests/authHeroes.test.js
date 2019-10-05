@@ -15,28 +15,26 @@ const USER_DB = {
     password: '$2b$04$3lCKlOpHe2d.C41DDN5TUeIlLNKZ5pkjuRKUcjwD0dyqjzYhQ8Wii'
 }
 
-describe ('Auth test suite', function () {
+describe.only ('Auth test suite', function () {
     this.beforeAll(async () => {
         app = await api;
 
         const connectionPostgres = await Postgres.connect();
         const model = await Postgres.defineModel(connectionPostgres, UsuarioSchema);
         const postgres = new Context(new Postgres(connectionPostgres, model));
-
-        const result = await postgres.update(null, USER_DB, true);
+        await postgres.update(null, USER_DB, true);
 
     })
 
-    // it('deve obter um token', async () => {
-    //     const result = await app.inject({
-    //         method: 'POST',
-    //         url: '/login',
-    //         payload: USER
-    //     })
+    it('deve obter um token', async () => {
+        const result = await app.inject({
+            method: 'POST',
+            url: '/login',
+            payload: USER
+        });
+        const statusCode = result.statusCode
 
-    //     const statusCode = result.statusCode;
-    //     const dados = JSON.parse(result.payload);
-    //     assert.deepEqual(statusCode, 200);
-    //     assert.ok(dados.token.length > 10);
-    // })
+        assert.deepEqual(statusCode, 200)
+        assert.ok(JSON.parse(result.payload).token.length > 10)
+    })
 });
