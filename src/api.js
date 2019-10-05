@@ -45,7 +45,7 @@ async function main() {
 
     const swaggerOptions = {
         info: {
-            title: 'API Herois - #CursoNodeBR',
+            title: 'API Herois - #CursoNodeBR - By Ygor Mattos',
             version: 'v1.0',
         }
     };
