@@ -15,7 +15,7 @@ const USER_DB = {
     password: '$2b$04$3lCKlOpHe2d.C41DDN5TUeIlLNKZ5pkjuRKUcjwD0dyqjzYhQ8Wii'
 }
 
-describe.only ('Auth test suite', function () {
+describe ('Auth test suite', function () {
     this.beforeAll(async () => {
         app = await api;
 
